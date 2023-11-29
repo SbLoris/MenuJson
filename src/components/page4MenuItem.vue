@@ -4,7 +4,7 @@
   <icon-with-label-menu-item
     :icon="icon"
     :label="label"
-    
+  
     :link="link"
     @click="handleClick"
   />
@@ -25,7 +25,6 @@ export default {
     };
   },
   methods: {
-    methods: {
   handleClick() {
     console.log("handleClick method called");
     
@@ -39,7 +38,6 @@ export default {
     }
   }
 }
-
-  },
+,
 };
 </script>
