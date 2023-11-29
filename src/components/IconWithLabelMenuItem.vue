@@ -1,8 +1,10 @@
 <template>
-  <div @click="handleClick" :class="{ 'disabled': !permission }">
-    <img :src="icon" alt="Icon" />
+    <div @click="handleClick" :class=" { 'flex m-2 justify-center': true, 'opacity-50 cursor-not-allowed disabled':!permission }">
+    <div class="flex m-2 justify-center">
+    <img :src="icon" alt="Icon" class="rounded w-1/5 h-auto " />
     <span>{{ label }}</span>
   </div>
+</div>
 </template>
 
 <script>
@@ -13,13 +15,7 @@ export default {
     permission: Boolean,
     link: String,
   },
-  methods: {
-    handleClick() {
-      if (this.permission) {
-        this.$emit("openLink", this.label, this.link);
-      }
-    },
-  },
+
   computed: {
     iconClass() {
       return this.$options.name && this.$options.name.includes('MenuItem') ? 'home-icon' : 'default-icon';
@@ -29,16 +25,6 @@ export default {
 </script>
 
 <style scoped>
-.home-icon {
-  background-color: red;
-}
 
-.default-icon {
-  background-color: blue;
-}
 
-.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
 </style>

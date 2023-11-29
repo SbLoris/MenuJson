@@ -1,11 +1,14 @@
 <template>
-  <div id="app">
-    <div class="menu-whole">
-      <div class="field-loader">
-        <textarea  v-model="jsonInput" placeholder="Entrez le JSON du menu ici"></textarea>
-        <button  @click="loadMenu">Charger le menu</button>
+  <div id="app" class="h-screen bg-sky-100">
+    <div id="toast-container">
+    
+    </div> 
+    <div class="menu-whole h-5/6 ">
+      <div class="field-loader w-1/2 h-full shadow-xl ">
+        <textarea  v-model="jsonInput" placeholder="Entrez le JSON du menu ici" class="block p-2.5 h-full w-full "></textarea>
+        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"  @click="loadMenu">Charger le menu</button>
       </div>
-      <div class="menu-loaded bg-blue-500">
+      <div class="menu-loaded w-1/2 text-gray-900 bg-blue-500 rounded shadow-xl p-8" >
         <div v-for="(item, index) in getMenuItems()" :key="index">
           <component
             :is="getComponentName(item)"
@@ -14,14 +17,16 @@
             :link="item.link"
             :articleCount="item.component === 'nbArticlesLabel' ? dynamicArticleCount : undefined"
             @updateArticleCount="updateArticleCount"
-            @showToastOnLinkOpen="showToast"
+            @showToastOnLinkOpen="showToastOnLinkOpen"
           />
         </div>
-        <button @click="toggleHiddenItems" v-if="hiddenItems.length > 0">Other</button>
+        <div class="flex justify-center">
+        <button class="bg-white " @click="toggleHiddenItems" v-if="hiddenItems.length > 0">Other</button>
+        </div>
         <component :is="dynamicComponent" v-if="dynamicComponent" />
       </div>
     </div>
-    <div id="toast-container"></div>
+    
   </div>
 </template>
 
@@ -59,6 +64,8 @@ export default {
         this.menuItems = parsedJson.menuItems.map((item) => ({ ...item, type: "menuItem" }));
         this.hiddenItems = parsedJson.hiddenItems.map((item) => ({ ...item, type: "hiddenItem" }));
         this.showHiddenItems = false;
+        
+
       } catch (error) {
         console.error("Erreur lors du chargement du JSON :", error);
       }
@@ -73,21 +80,25 @@ export default {
     updateArticleCount(value) {
       this.dynamicArticleCount = value;
     },
-    showToast(message, permission) {
-    // Ajoutez une condition pour vérifier si l'élément est permis
-    if (permission) {
-      // Créer un élément de toast et l'ajouter au DOM
-      const toastElement = document.createElement("div");
-      toastElement.className = "toast";
-      toastElement.textContent = `Ouverture de la page ${message}`;
-      document.getElementById("toast-container").appendChild(toastElement);
+    showToastOnLinkOpen(message) {
+      this.showToast(message);
+    },
+    showToast(message) {
+ 
+    const toastElement = document.createElement("div");
+    toastElement.className = "toast fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow top-5 right-5 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800";
+    toastElement.textContent = `Ouverture de la page ${message}`;
+    
+   
+    this.$emit("showToastOnLinkOpen", `Ouverture de la page ${message}`);
 
-      // Supprimer le toast après 5 secondes
-      setTimeout(() => {
-        toastElement.remove();
-      }, 5000);
-    }
-  },
+    document.getElementById("toast-container").appendChild(toastElement);
+
+    setTimeout(() => {
+      toastElement.remove();
+    }, 5000);
+  
+},
     getComponentName(item) {
       // Mapping entre les composants et leurs noms
       const componentMap = {
@@ -103,9 +114,9 @@ export default {
   },
 };
 </script>
-<style lang="css" src="@/styles/tailwind.css">
-
-
-/* Ajoutez des styles pour le toast si nécessaire */
-
+<style lang="css">
+  @import '@/assets/styles/tailwind.css';
+  
 </style>
+
+

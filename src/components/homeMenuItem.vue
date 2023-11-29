@@ -20,7 +20,7 @@ export default {
       icon: require("@/assets/maison.jpg"),
       label: "Accueil",
       permission: true,
-      link: "/config",
+      link: "/home",
     };
   },
   methods: {

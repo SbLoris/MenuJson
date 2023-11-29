@@ -1,8 +1,10 @@
+// page5MenuItem.vue
+
 <template>
   <icon-with-label-menu-item
     :icon="icon"
     :label="label"
-    :permission="permission"
+    
     :link="link"
     @click="handleClick"
   />
@@ -19,18 +21,25 @@ export default {
     return {
       icon: require("@/assets/fruit.jpg"),
       label: "Page 1",
-      permission: true,
       link: "/config",
     };
   },
   methods: {
+    methods: {
   handleClick() {
-    if (this.permission) {
-      this.$emit("showToastOnLinkOpen", this.label, this.permission);
+    console.log("handleClick method called");
+    
+    // Vérifiez si l'élément fait partie de la classe 'disabled'
+    if (this.$el.classList.contains('disabled')) {
+      console.log("Element is disabled");
+      return;
+    } else {
+      // Si l'élément n'est pas désactivé, émettez l'événement pour déclencher le toast
+      this.$emit("showToastOnLinkOpen", this.label);
     }
-  },
-  
-},
+  }
+}
 
+  },
 };
 </script>

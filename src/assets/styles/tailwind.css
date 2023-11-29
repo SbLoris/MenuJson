@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html{
+  height :100%;
+}
+.toast {
+  
+   
+    animation: fadeIn 0.5s;
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  
+
+  body {
+   
+    height :100%;
+  }
+  .field-loader{
+    display: flex;
+    margin: 3rem;
+    flex-direction: column;
+  
+  }
+  .menu-loaded{
+  
+   margin: 3rem;
+  }
+  .menu-whole{
+    display: flex;
+    
+  } 

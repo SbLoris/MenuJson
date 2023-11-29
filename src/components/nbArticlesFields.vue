@@ -1,5 +1,6 @@
 <template>
-  <div>
+  
+  <div class="flex m-2 justify-center">
     <label for="nbArticles">Nombre d'articles:</label>
     <input
       type="number"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+
 export default {
   props: {
     articleCount: {
@@ -24,4 +26,5 @@ export default {
     },
   },
 };
+
 </script>
