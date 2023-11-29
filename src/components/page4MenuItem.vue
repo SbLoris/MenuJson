@@ -4,10 +4,11 @@
   <icon-with-label-menu-item
     :icon="icon"
     :label="label"
-  
+    :permission="permission"
     :link="link"
     @click="handleClick"
   />
+
 </template>
 
 <script>
@@ -20,23 +21,22 @@ export default {
   data() {
     return {
       icon: require("@/assets/fruit.jpg"),
-      label: "Page 1",
-      link: "/config",
+      label: "Page 4",
+      link: "/page4",
+      permission:"true",
     };
   },
   methods: {
-  handleClick() {
-    console.log("handleClick method called");
-    
-    // Vérifiez si l'élément fait partie de la classe 'disabled'
-    if (this.$el.classList.contains('disabled')) {
-      console.log("Element is disabled");
-      return;
-    } else {
-      // Si l'élément n'est pas désactivé, émettez l'événement pour déclencher le toast
-      this.$emit("showToastOnLinkOpen", this.label);
-    }
-  }
+    handleClick() {
+      if (this.$el.classList.contains('disabled')) {
+        console.log("Element is disabled");
+        return;
+      } else {
+        // If the element is not disabled, emit the event to trigger the toast
+        this.$emit("showToastOnLinkOpen", this.label, this.permission, this.link, this.icon);
+        this.$emit("openLink", this.label, this.link);
+      }
+    },
 }
 ,
 };

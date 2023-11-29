@@ -1,14 +1,15 @@
 <template>
   <div id="app" class="h-screen bg-sky-100">
     <div id="toast-container">
-    
+
+     
     </div> 
-    <div class="menu-whole h-5/6 ">
-      <div class="field-loader w-1/2 h-full shadow-xl ">
-        <textarea  v-model="jsonInput" placeholder="Entrez le JSON du menu ici" class="block p-2.5 h-full w-full "></textarea>
+    <div class="menu-whole h-5/6 flex  ">
+      <div class="field-loader w-1/2 h-full flex flex-col   bg-white  m-4 p-1 lg:m-12 lg:p-4 shadow-xl">
+        <textarea  v-model="jsonInput" placeholder="Entrez le JSON du menu ici" class="block p-2.5 h-full w-full  text-xs"></textarea>
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"  @click="loadMenu">Charger le menu</button>
       </div>
-      <div class="menu-loaded w-1/2 text-gray-900 bg-blue-500 rounded shadow-xl p-8" >
+      <div class="menu-loaded w-1/2 h-full text-gray-900 bg-blue-500 rounded shadow-xl m-4 p-1 lg:m-12 lg:p-4 " >
         <div v-for="(item, index) in getMenuItems()" :key="index">
           <component
             :is="getComponentName(item)"
@@ -59,44 +60,56 @@ export default {
   },
   methods: {
     loadMenu() {
-      try {
-        const parsedJson = JSON.parse(this.jsonInput);
-        this.menuItems = parsedJson.menuItems.map((item) => ({ ...item, type: "menuItem" }));
-        this.hiddenItems = parsedJson.hiddenItems.map((item) => ({ ...item, type: "hiddenItem" }));
-        this.showHiddenItems = false;
-        
+  try {
+    const parsedJson = JSON.parse(this.jsonInput);
+    this.menuItems = parsedJson.menuItems.map((item) => ({ ...item, type: "menuItem" }));
+    this.hiddenItems = parsedJson.hiddenItems.map((item) => ({ ...item, type: "hiddenItem" }));
+    this.showHiddenItems = false;
 
-      } catch (error) {
-        console.error("Erreur lors du chargement du JSON :", error);
-      }
-    },
+    console.log('Menu Items:', this.menuItems);
+    console.log('Hidden Items:', this.hiddenItems);
+  } catch (error) {
+    console.error("Erreur lors du chargement du JSON :", error);
+  }
+},
     toggleHiddenItems() {
       this.showHiddenItems = !this.showHiddenItems;
     },
     getMenuItems() {
-      const combinedItems = [...this.menuItems, ...this.hiddenItems];
-      return this.showHiddenItems ? combinedItems : this.menuItems;
-    },
+  const combinedItems = [...this.menuItems, ...this.hiddenItems];
+  console.log(combinedItems);
+  return this.showHiddenItems ? combinedItems : this.menuItems;
+},
+
     updateArticleCount(value) {
       this.dynamicArticleCount = value;
     },
-    showToastOnLinkOpen(message) {
-      this.showToast(message);
-    },
-    showToast(message) {
+    showToastOnLinkOpen(label, permission) {
+  if (label, permission) {
+    this.showToast(label, permission);
+  } else {
+    console.error('Invalid item object:');
+  }
+},
+
+showToast(label) {
  
-    const toastElement = document.createElement("div");
-    toastElement.className = "toast fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow top-5 right-5 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800";
-    toastElement.textContent = `Ouverture de la page ${message}`;
     
-   
-    this.$emit("showToastOnLinkOpen", `Ouverture de la page ${message}`);
+ 
+  const toastElement = document.createElement("div");
+  toastElement.className = "toast animate-fadein fixed flex items-center w-full max-w-xs p-4 space-x-4 text-gray-500 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow top-5 right-5 dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800";
+  toastElement.textContent = `Ouverture de la page ${label}`;
+  
+  
 
-    document.getElementById("toast-container").appendChild(toastElement);
 
-    setTimeout(() => {
-      toastElement.remove();
-    }, 5000);
+
+  document.getElementById("toast-container").appendChild(toastElement);
+
+
+  setTimeout(() => {
+    toastElement.remove();
+  }, 5000);
   
 },
     getComponentName(item) {
@@ -113,7 +126,11 @@ export default {
     },
   },
 };
+
 </script>
+
+
+
 <style lang="css">
   @import '@/assets/styles/tailwind.css';
   

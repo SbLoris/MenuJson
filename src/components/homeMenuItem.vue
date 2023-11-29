@@ -2,8 +2,8 @@
   <icon-with-label-menu-item
     :icon="icon"
     :label="label"
-    :permission="permission"
     :link="link"
+    :permission="permission"
     @click="handleClick"
   />
 </template>
@@ -19,17 +19,22 @@ export default {
     return {
       icon: require("@/assets/maison.jpg"),
       label: "Accueil",
-      permission: true,
       link: "/home",
+      permission:"true",
     };
   },
   methods: {
-  handleClick() {
-    if (this.permission) {
-      this.$emit("showToastOnLinkOpen", this.label, this.permission);
-    }
-  },
-  
+ 
+    handleClick() {
+      if (this.$el.classList.contains('disabled')) {
+        console.log("Element is disabled");
+        return;
+      } else {
+        // If the element is not disabled, emit the event to trigger the toast
+        this.$emit("showToastOnLinkOpen", this.label, this.permission, this.link, this.icon);
+        this.$emit("openLink", this.label, this.link);
+      }
+    },
 },
 
 };

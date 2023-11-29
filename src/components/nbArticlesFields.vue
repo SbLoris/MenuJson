@@ -2,13 +2,14 @@
   
   <div class="flex m-2 justify-center">
     <label for="nbArticles">Nombre d'articles:</label>
-    <input
+    <input class="w-1/4 h-10"
       type="number"
       id="nbArticles"
       :value="articleCount"
       @input="updateArticleCount"
     />
   </div>
+  
 </template>
 
 <script>

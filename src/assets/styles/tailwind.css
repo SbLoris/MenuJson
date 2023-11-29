@@ -3,34 +3,27 @@
 @tailwind utilities;
 html{
   height :100%;
+  width: 100%;
 }
-.toast {
-  
+body {
    
-    animation: fadeIn 0.5s;
-  }
-  @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
-  
-
+  height :100%;
+}
+body {
+  font-size: 10px;
+}
+@media (min-width:768px) {
   body {
-   
-    height :100%;
+      font-size: 14px;
   }
-  .field-loader{
-    display: flex;
-    margin: 3rem;
-    flex-direction: column;
-  
+}
+@media (min-width:1024px) {
+  body {
+      font-size: 16px;
   }
-  .menu-loaded{
-  
-   margin: 3rem;
+}
+@media (min-width:1280px) {
+  body {
+      font-size: 20px;
   }
-  .menu-whole{
-    display: flex;
-    
-  } 
+}
