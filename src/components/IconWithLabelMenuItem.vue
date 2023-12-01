@@ -1,12 +1,12 @@
 <template>
-  <div class="lg:w-1/2 md:w-3/4 sm:w-full">
-  <div @click="handleClick" :class="{ 'flex m-2 justify-center': true, 'opacity-50 cursor-not-allowed disabled': !permission }">
+  <div  @click="handleClick" :class="{ 'lg:w-1/2 md:w-3/4 sm:w-full flex m-2 justify-center': true, 'opacity-50 cursor-not-allowed disabled': !permission }">
+
    
-      <img :src="icon" alt="Icon" class="rounded w-10 h-auto max-h-full" />
-      <span>{{ label }}</span>
+      <img :src="icon" alt="Icon" class="rounded-3xl w-10 h-10 lg:w-20 lg:h-20 border-solid border-2 shadow-xl" />
+      
     
   </div>
-</div>
+
 </template>
 
 <script>
@@ -29,5 +29,5 @@ export default {
 </script>
 
 <style scoped>
-  /* Add scoped styles here if needed */
+
 </style>

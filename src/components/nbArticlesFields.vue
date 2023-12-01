@@ -2,7 +2,7 @@
   
   <div class="flex m-2 justify-center">
     <label for="nbArticles">Nombre d'articles:</label>
-    <input class="w-1/4 h-10"
+    <input class="w-1/6 h-5 lg:w1/4 lg:h-10"
       type="number"
       id="nbArticles"
       :value="articleCount"
