@@ -1,4 +1,4 @@
-// page5MenuItem.vue
+
 
 <template>
   <icon-with-label-menu-item
@@ -31,7 +31,6 @@ export default {
         console.log("Element is disabled");
         return;
       } else {
-        // If the element is not disabled, emit the event to trigger the toast
         this.$emit("showToastOnLinkOpen", this.label, this.permission, this.link, this.icon);
         this.$emit("openLink", this.label, this.link);
       }
